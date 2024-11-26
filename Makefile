@@ -1,6 +1,6 @@
 .PHONY: all clean fclean re
 
-LIB_DIR = /libft
+LIB_DIR = ./libft
 LIBRARY = $(LIB_DIR)/libft.a
 
 NAME = libftprintf.a
@@ -26,11 +26,11 @@ $(NAME): $(OBJS)
 
 clean:
 	@echo "Cleaning objects..."
-	rm -f $(OBJ)
+	rm -f $(OBJS)
 
 fclean: clean
 	@echo "Cleaning libft and libftprintf..."
 	$(MAKE) -C $(LIB_DIR) fclean
-	rm -fv $(NAME)
+	rm -fv $(NAME) 
 
 re: fclean all
