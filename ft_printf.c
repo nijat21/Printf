@@ -28,9 +28,9 @@ int call_relative_ft(char c, va_list args)
     return (1);
 }
 
-int iterate_format(const char *format, int i)
-{
-}
+// int iterate_format(const char *format, int i)
+// {
+// }
 
 // __attribute__((format(printf, 1, 2)))
 int ft_printf(const char *format, ...)

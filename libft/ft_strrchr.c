@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nismayil <nismayil@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/21 13:26:16 by nismayil          #+#    #+#             */
+/*   Updated: 2024/11/21 15:49:37 by nismayil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char *ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-    size_t i;
-    size_t str_len;
-    char *str;
+	size_t	str_len;
+	char	*str;
 
-    str = (char *)s;
-    str_len = ft_strlen(str);
-    i = str_len + 1;
-    while (i > 0)
-    {
-        i--;
-        if ((unsigned char)c == (unsigned char)str[i])
-            return &str[i];
-    }
-    return NULL;
+	str = (char *)s;
+	str_len = ft_strlen(str);
+	if ((unsigned char)c == '\0')
+		return (&str[str_len]);
+	while (str_len > 0)
+	{
+		str_len--;
+		if ((unsigned char)c == (unsigned char)str[str_len])
+			return (&str[str_len]);
+	}
+	return (NULL);
 }

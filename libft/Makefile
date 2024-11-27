@@ -1,4 +1,4 @@
-.PHONY: all bonus clean flcean re
+.PHONY: all clean flcean re
 
 NAME = libft.a
 
@@ -7,7 +7,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS := ft_isalnum.c ft_itoa.c ft_memchr.c ft_putchar_fd.c \
-        ft_strchr.c ft_strlcpy.c ft_strrchr.c archive.c ft_isalpha.c \
+        ft_strchr.c ft_strlcpy.c ft_strrchr.c ft_isalpha.c \
         ft_memcmp.c ft_putendl_fd.c ft_strdup.c ft_strlen.c \
         ft_strtrim.c ft_atoi.c ft_isascii.c ft_memcpy.c ft_putnbr_fd.c \
         ft_striteri.c ft_strmapi.c ft_substr.c ft_bzero.c ft_isdigit.c \
@@ -27,14 +27,15 @@ ${NAME}: ${OBJS}
 	@echo "Linking libft.a"
 	ar rcs ${NAME} ${OBJS}
 
-bonus: ${BONUS_OBJS}
+bonus: ${NAME} ${BONUS_OBJS}
 	ar rcs ${NAME} ${BONUS_OBJS}
+	touch bonus
 
 %.o: %.c libft.h
 	${CC} ${CFLAGS} -c $< -o $@
 
 clean:
-	rm -fv ${OBJS} ${BONUS_OBJS}
+	rm -fv ${OBJS} ${BONUS_OBJS} bonus
 
 fclean: clean
 	rm -f ${NAME}
