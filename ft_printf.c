@@ -7,9 +7,30 @@ static int valid_specifier(char c)
     return (1);
 }
 
-// void call_relative_ft(int i, int count, char *format)
-// {
-// }
+int call_relative_ft(char c, va_list args)
+{
+    if (c == 'c')
+        ft_putchar_fd(va_arg(args, int), 1);
+    else if (c == 's')
+        ft_putstr_fd(va_arg(args, char *), 1);
+    else if (c == 'p')
+        ft_print_pointer_fd(va_arg(args, void *), 1);
+    else if (c == 'i' || c == 'd')
+        ft_putnbr_fd(va_arg(args, int), 1);
+    else if (c == 'u')
+        ft_putnbr_unsigned_fd(va_arg(args, unsigned int), 1); // 2147483648 returns error in original but not in this
+    else if (c == 'x')
+        ft_puthex_fd(va_arg(args, unsigned int), 1, "0123456789abcdef");
+    else if (c == 'X')
+        ft_puthex_fd(va_arg(args, unsigned int), 1, "0123456789ABCDEF");
+    else if (c == '%')
+        ft_putchar_fd('%', 1);
+    return (1);
+}
+
+int iterate_format(const char *format, int i)
+{
+}
 
 // __attribute__((format(printf, 1, 2)))
 int ft_printf(const char *format, ...)
@@ -24,31 +45,13 @@ int ft_printf(const char *format, ...)
     count = 0;
     while (format[i])
     {
-        if (format[i] == '%' && !valid_specifier(format[i + 1]))
-        {
-            ft_putstr_fd("Invalid specifier\n", 1);
-            return (0);
-        }
-        else if (format[i] == '%' && format[i + 1])
+        if (format[i] == '%')
         {
             i++;
-            if (format[i] == 'c')
-                ft_putchar_fd(va_arg(args, int), 1);
-            else if (format[i] == 's')
-                ft_putstr_fd(va_arg(args, char *), 1);
-            else if (format[i] == 'p')
-                ft_print_pointer_fd(va_arg(args, void *), 1);
-            else if (format[i] == 'i' || format[i] == 'd')
-                ft_putnbr_fd(va_arg(args, int), 1);
-            else if (format[i] == 'u')
-                ft_putnbr_unsigned_fd(va_arg(args, unsigned int), 1); // 2147483648 returns error in original but not in this
-            else if (format[i] == 'x')
-                ft_puthex_fd(va_arg(args, unsigned int), 1, "0123456789abcdef");
-            else if (format[i] == 'X')
-                ft_puthex_fd(va_arg(args, unsigned int), 1, "0123456789ABCDEF");
-            else if (format[i] == '%')
-                ft_putchar_fd('%', 1);
-            count++;
+            if (!valid_specifier(format[i]))
+                return (0);
+            else
+                count += call_relative_ft(format[i], args);
         }
         else
         {
@@ -57,6 +60,7 @@ int ft_printf(const char *format, ...)
         }
         i++;
     }
+    va_end(args);
     return count;
 }
 
