@@ -1,4 +1,4 @@
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static int valid_specifier(char c)
 {
@@ -10,34 +10,48 @@ static int valid_specifier(char c)
 int call_relative_ft(char c, va_list args)
 {
     if (c == 'c')
-        ft_putchar_fd(va_arg(args, int), 1);
+        return print_char(va_arg(args, int));
     else if (c == 's')
-        ft_putstr_fd(va_arg(args, char *), 1);
+        return print_string(va_arg(args, char *));
     else if (c == 'p')
-        ft_print_pointer_fd(va_arg(args, void *), 1);
+        return print_pointer(va_arg(args, void *));
     else if (c == 'i' || c == 'd')
-        ft_putnbr_fd(va_arg(args, int), 1);
+        return print_number(va_arg(args, int));
     else if (c == 'u')
-        ft_putnbr_unsigned_fd(va_arg(args, unsigned int), 1); // 2147483648 returns error in original but not in this
+        return print_unsigned_number(va_arg(args, unsigned int)); // 2147483648 returns error in original but not in this
     else if (c == 'x')
-        ft_puthex_fd(va_arg(args, unsigned int), 1, "0123456789abcdef");
+        return print_hex(va_arg(args, unsigned int), "0123456789abcdef");
     else if (c == 'X')
-        ft_puthex_fd(va_arg(args, unsigned int), 1, "0123456789ABCDEF");
+        return print_hex(va_arg(args, unsigned int), "0123456789ABCDEF");
     else if (c == '%')
-        ft_putchar_fd('%', 1);
-    return (1);
+        return print_char('%');
+    return (0);
 }
 
-// int iterate_format(const char *format, int i)
-// {
-// }
+static int iterate_format(const char *format, int count, int *i, va_list args)
+{
+    if (format[*i] == '%')
+    {
+        (*i)++;
+        if (!valid_specifier(format[*i]))
+            return (0);
+        else
+            count += call_relative_ft(format[*i], args);
+    }
+    else
+    {
+        ft_putchar_fd(format[*i], 1);
+        count++;
+    }
+    return count;
+}
 
-// __attribute__((format(printf, 1, 2)))
 int ft_printf(const char *format, ...)
 {
     va_list args;
     va_start(args, format);
-    int i, count;
+    int i;
+    int count;
 
     if (!format)
         return (0);
@@ -45,25 +59,9 @@ int ft_printf(const char *format, ...)
     count = 0;
     while (format[i])
     {
-        if (format[i] == '%')
-        {
-            i++;
-            if (!valid_specifier(format[i]))
-                return (0);
-            else
-                count += call_relative_ft(format[i], args);
-        }
-        else
-        {
-            ft_putchar_fd(format[i], 1);
-            count++;
-        }
+        count = iterate_format(format, count, &i, args);
         i++;
     }
     va_end(args);
     return count;
 }
-
-// The case where ft_printf is used to print the type we don't support in this func ????
-// printf("%\n") ????
-// Check types for each function
