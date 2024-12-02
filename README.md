@@ -36,4 +36,24 @@ A custom implementation of the `printf` function in C, created as part of the 42
 ### Compilation
 Use the provided `Makefile` to compile the project:
 ```bash
-make
+make`
+
+This will generate an object file and an executable.
+
+### Usage
+
+To use the `ft_printf` function in your project:
+
+1.  Include `ft_printf.h` in your source file.
+2.  Call `ft_printf` as you would use the standard `printf`.
+
+Example:
+#include "ft_printf.h"
+
+```C
+int main()\
+{\
+    ft_printf("Hello, World! My number is %d and my hex is %x\n", 42, 42);\
+    return 0;\
+}
+```
