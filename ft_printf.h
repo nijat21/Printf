@@ -15,4 +15,6 @@ int print_number(int num);
 int print_unsigned_number(unsigned int n);
 int print_hex(unsigned int n, char *base);
 
+void bonus1();
+
 #endif

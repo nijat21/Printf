@@ -40,7 +40,7 @@ static int iterate_format(const char *format, int count, int *i, va_list args)
     }
     else
     {
-        ft_putchar_fd(format[*i], 1);
+        print_char(format[*i]);
         count++;
     }
     return count;
