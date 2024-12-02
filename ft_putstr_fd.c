@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nismayil <nismayil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 13:22:01 by nismayil          #+#    #+#             */
-/*   Updated: 2024/11/21 17:51:17 by nismayil         ###   ########.fr       */
+/*   Created: 2024/11/21 13:22:16 by nismayil          #+#    #+#             */
+/*   Updated: 2024/12/02 14:50:53 by nismayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
-	long	num;
-	char	temp;
-
-	num = n;
-	if (fd < 0)
+	if (!s || fd < 0)
 		return ;
-	if (num < 0)
-	{
-		write(fd, "-", 1);
-		num *= -1;
-	}
-	if (num >= 10)
-		ft_putnbr_fd(num / 10, fd);
-	temp = num % 10 + '0';
-	write(fd, &temp, 1);
+	write(fd, s, ft_strlen(s));
 }

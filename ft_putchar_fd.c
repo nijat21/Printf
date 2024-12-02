@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nismayil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nismayil <nismayil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 13:18:07 by nismayil          #+#    #+#             */
-/*   Updated: 2024/11/21 13:18:09 by nismayil         ###   ########.fr       */
+/*   Created: 2024/11/21 13:21:37 by nismayil          #+#    #+#             */
+/*   Updated: 2024/12/02 14:50:46 by nismayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_putchar_fd(char c, int fd)
 {
-	if (!new)
+	if (fd < 0)
 		return ;
-	new->next = *lst;
-	*lst = new;
+	write(fd, &c, 1);
 }

@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nismayil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nismayil <nismayil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 13:27:36 by nismayil          #+#    #+#             */
-/*   Updated: 2024/11/21 13:27:41 by nismayil         ###   ########.fr       */
+/*   Created: 2024/11/21 13:25:19 by nismayil          #+#    #+#             */
+/*   Updated: 2024/12/02 14:51:00 by nismayil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_toupper(int c)
+#include "ft_printf.h"
+
+size_t	ft_strlen(const char *s)
 {
-	if (c >= 'a' && c <= 'z')
+	size_t	count;
+
+	count = 0;
+	while (*s)
 	{
-		return (c - 32);
+		s++;
+		count++;
 	}
-	return (c);
+	return (count);
 }
